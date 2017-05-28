@@ -1,17 +1,72 @@
+// ***Remember to keep the code simple***
+
 
 // Make an Array for the questions
 var myArray= [firstQuestion,secondQuestion,thirdQuestion,fourthQuestion,fifthQuestion];
-console.log(myArray.length);
-console.log(myArray[3]);
+	// Debugging area
+	console.log(myArray.length);
+
+	// This is undefined right now. Will have to figure out...why
+	console.log(myArray[3]);	// Sidenote: remember to make a function that adjusts the value of the array
+
+// Global Variables that can go into functions.  
+var question;
+var answers;
+var userInput;
+var IntervalID
+
+// This counter will be for each round
+var counter=20;  // Sidenote: Might get rid of this variable
+
+
+// Function this will display the questions under the start ("#start")
+function displayQuestion() {
+	var startDiv= $("<div>");
+
+	startDiv.html(function(){
+		return "<h1>" + question.questionScript + "</h1>"
+	})
+
+	console.log(question.questionScript);
+	startDiv.addClass("col-md-12 marker");
+	$("#start").append(startDiv)
+}
+
+
+// Function to render the question
+function render(){
+	var startDiv= $("#start");
+
+	// Set content into the html
+	startDiv.html("<h1>" + question.questionScript + "</h1>");
+
+	var length=(question.potentialAnswers.length);
+	console.log(length);
+
+	for (var i=0; i<length; i++) {
+		var btn =$("<button>");
+			// Trying to add buttons for each question
+		btn.addClass("col-md-6 temp btn-primary question" + i);
+		btn.attr("data-let", question.potentialAnswers[i]);  // Why does this have to be a comma vs a semi-colon?
+		btn.html(question.potentialAnswers[i]);
+			// Add the buttons side by side
+		$("#start").append(btn);
+	}
+}
 
 
 
 
 
 
-// Questions
-	// Quiz will consist of five questions, if trouble shooting and everything goes well increase
 
+
+
+
+
+
+// Questions (consists of objects)
+	// Quiz will consist of five questions, if trouble shooting goes well increase
 var firstQuestion = {
 	"questionNumber": 1,
 	"timeRemaining": 30,
@@ -77,7 +132,7 @@ var fifthQuestion = {
 	// put a gif here so it appears after each question if you still have time
 	// "imageGif": ,
 }
-
-console.log(firstQuestion.potentialAnswers[1]);
+	// Debugging area for questions
+	console.log(firstQuestion.potentialAnswers[1]);
 
 
