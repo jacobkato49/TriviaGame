@@ -19,6 +19,36 @@ var IntervalID
 var counter=20;  // Sidenote: Might get rid of this variable
 
 
+
+$(document).ready(function(){
+	$("#gameStart").on("click",function() {
+		question= changeQuestion();
+		displayQuestion(question);
+		render(question);
+
+		IntervalID= setInterval(function(){
+			counter--;
+
+			$("#timer").html("<h2>" + counter + " </h2>");
+
+			if (counter===0) {
+				displayTimeOut();
+				clearinterval(IntervalID);
+			} 
+
+		})
+		
+
+
+	})
+})
+
+
+
+
+
+
+
 // Function this will display the questions under the start ("#start")
 function displayQuestion() {
 	var startDiv= $("<div>");
@@ -55,13 +85,55 @@ function render(){
 }
 
 
+// Function to change the question
+function changeQuestion(){
+	if(myArray.length>0) {
+		var number= Math.floor(Math.random()* myArray.length);
+		question= myArray[number];
+		myArray.splice(number.length);
+
+		// Debugg Here
+		console.log(number);
+		console.log(question);
+		console.log(myArray[number]);
+
+		return question;
+	} else {
+		alert("The game is now over. Thank you for playing.");
+	}
+
+}
+
+// Function for when the time runs out
+function displayTimeOut () {
+	$("#start").empty();
+	displayQuestion(question);
+}
+
+
+// Function for GIF Appearance
+	// Do this if you have time
 
 
 
+// Function for the wrong answer
+function displayWrongAnswer() {
+	var div= $("<div>");
+	div.addClass("col-md-12");
+	div.html("<h2>" + userInput + " is not correct! The correct answer was " + answer + " ! </h2>");
 
+	// add image or gif
 
+	setTimeout(nextQuestion, 10000);
+}
 
+// Function to goto the next question
+function nextQuestion () {
+	$("#start").empty();
+	changeQuestion();
 
+	render();
+}
 
 
 
