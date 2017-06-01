@@ -6,6 +6,7 @@ var myArray= [firstQuestion,secondQuestion,thirdQuestion,fourthQuestion,fifthQue
 	// Debugging area
 	console.log(myArray.length);
 
+	// See my comment #1 below on line 143.
 	// This is undefined right now. Will have to figure out...why
 	console.log(myArray[3]);	// Sidenote: remember to make a function that adjusts the value of the array
 
@@ -70,7 +71,7 @@ function render(){
 	// Set content into the html
 	startDiv.html("<h1>" + question.questionScript + "</h1>");
 
-	var length=(question.potentialAnswers.length);
+	var length=(question.potentialAnswers.length); // 4. Parentheses are not necessary here.
 	console.log(length);
 
 	for (var i=0; i<length; i++) {
@@ -78,6 +79,8 @@ function render(){
 			// Trying to add buttons for each question
 		btn.addClass("col-md-6 temp btn-primary question" + i);
 		btn.attr("data-let", question.potentialAnswers[i]);  // Why does this have to be a comma vs a semi-colon?
+		                                                     // 5. Beacuse commas separate arguments/parameters 
+								     //    to functions. Semi-colons end statements.
 		btn.html(question.potentialAnswers[i]);
 			// Add the buttons side by side
 		$("#start").append(btn);
@@ -88,10 +91,10 @@ function render(){
 // Function to change the question
 function changeQuestion(){
 	if(myArray.length>0) {
+		// 2. Since you redeclared your globals (see comment #1) each value in myArray is 'undefined' here which is why things are failing.
 		var number= Math.floor(Math.random()* myArray.length);
 		question= myArray[number];
 		myArray.splice(number.length);
-
 		// Debugg Here
 		console.log(number);
 		console.log(question);
@@ -139,7 +142,10 @@ function nextQuestion () {
 
 // Questions (consists of objects)
 	// Quiz will consist of five questions, if trouble shooting goes well increase
-var firstQuestion = {
+var firstQuestion = { // 1.  Here, (and below) you are setting a new variable with these particular identifiers rather than assigning 
+	              //    values to those you defined and implicitly declared as globals in your array on line 5. This 
+	              //    is why it's important to declare all necessary data i.e. variables, objects, arrays near the top
+	              //    of your scripts and functions. Come talk to me in class about this, as it's a tricky issue.  
 	"questionNumber": 1,
 	"timeRemaining": 30,
 	"questionScript": "Who is the 45th president of the United States?",
